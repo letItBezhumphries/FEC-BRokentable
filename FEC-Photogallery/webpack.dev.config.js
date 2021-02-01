@@ -10,13 +10,13 @@ module.exports = {
   output: {
     filename: "bundle.js",
     path: DIST_DIR,
-    publicPath: "",
   },
+  devtool: "inline-source-map",
   devServer: {
     contentBase: DIST_DIR,
-    index: "index.html",
-    port: 3002,
-    writeToDisk: true,
+    // index: "index.html",
+    hot: true,
+    port: 3003,
   },
   module: {
     rules: [

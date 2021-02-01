@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.scss";
+import Photogallery from "./components/photogallery/Photogallery";
 
 const App = () => {
   if (process.env.NODE_ENV === "production") {
@@ -9,9 +10,9 @@ const App = () => {
   }
 
   return (
-    <div className="hello-world-text">
-      Hello World!! This is the Photo Gallery!
-    </div>
+    <>
+      <Photogallery />
+    </>
   );
 };
 

@@ -1,42 +1,48 @@
 require("dotenv").config();
 const express = require("express");
 const connectDB = require("../database/index");
-const morgan = require("morgan");
-const cors = require("cors");
+const webpack = require("webpack");
+const webpackDevMiddleware = require("webpack-dev-middleware");
 const path = require("path");
-// const { getPhotosForRestaurant } = require("../controller/utility");
 const app = express();
+const config = require("../webpack.dev.config");
+const compiler = webpack(config);
+const DIST_DIR = path.join(__dirname, "../public/dist");
+
 const PORT = process.env.PORT || 3003;
 
 // Connect Database
 connectDB();
 
-app.use(morgan("dev"));
-app.use(cors());
-// app.use(
-//   "/restaurants/:id/photos",
-//   express.static(path.join(__dirname, "../public/dist/"))
-// );
+// Init Middleware
+app.use(
+  express.json({
+    extended: false,
+  })
+);
 
-app.use(express.static(path.join(__dirname, "../public/dist")));
+app.use(
+  webpackDevMiddleware(compiler, {
+    publicPath: config.output.publicPath,
+  })
+);
+app.use(require("webpack-hot-middleware")(compiler));
 
-// app.get("/api/restaurants/:id", (req, res) => {
-//   const id = req.params.id;
-//   console.log("I am the req.params", req.params);
-//   getPhotosForRestaurant(id, (err, photos) => {
-//     if (err) {
-//       console.log("error in get /api", err);
-//     }
-//     res.status(200).send(JSON.stringify(photos));
+app.use(express.static(DIST_DIR));
+
+// Define Routes
+app.use("/api", require("../routes/restaurant"));
+
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../public/dist")));
+
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "public", "dist", "index.html"));
 //   });
-// });
-
-// app.get("/restaurants/:id", (req, res) => {
-//   const id = req.params.id;
-//   console.log("in the get photos", id);
-//   // console.log('path.join(__dirname', path.join(__dirname, '../public/dist'));
-//   res.sendFile(path.join(__dirname, "../public/dist/index.html"));
-// });
+// }
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(DIST_DIR, "index.html"));
+});
 
 app.listen(PORT, () => {
   console.log(`server running at: ${PORT}`);
