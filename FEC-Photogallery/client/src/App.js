@@ -1,18 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Route } from "react-router-dom";
+import PhotosSection from "./components/photosSection/PhotosSection";
 import "./App.scss";
-import Photogallery from "./components/photogallery/Photogallery";
 
 const App = () => {
-  if (process.env.NODE_ENV === "production") {
-    console.log("In Production Mode");
-  } else if (process.env.NODE_ENV === "development") {
-    console.log("In development Mode");
-  }
-
   return (
-    <>
-      <Photogallery />
-    </>
+    <div>
+      <Route exact path="/restaurants/:id" component={PhotosSection} />
+    </div>
   );
 };
 

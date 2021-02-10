@@ -1,0 +1,129 @@
+.photogallery-grid {
+  background-color: yellowgreen;
+  margin-top: 1rem;
+  // background-color: white;
+  height: 300px;
+  width: 653px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.left-box {
+  // background-color: transparent;
+  background-color: saddlebrown;
+  /*   flex: 0 0 22.970903522205208%; */
+  flex: 0 0 150px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__top-photo {
+    background-color: gainsboro;
+    flex: 0 0 149.5px;
+  }
+
+  &__bottom-photo {
+    background-color: blueviolet;
+    flex: 0 0 149.5px;
+  }
+
+  &__photo {
+    background-color: brown;
+  }
+}
+
+.center-box {
+  background-color: red;
+  background-size: cover;
+  /*   flex: 0 0 45.941807044410415%; */
+  flex: 0 0 300px;
+  height: 300px;
+
+  &__photo {
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.right-box {
+  // background-color: transparent;
+  background-color: slateblue;
+  /*   flex: 0 0 30.781010719754975%; */
+  flex: 0 0 201px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  &__row-1 {
+    background-color: green;
+    flex: 0 0 99.33333333333333px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__left-photo {
+      background-color: fuchsia;
+      flex: 0 0 100px;
+    }
+
+    &__right-photo {
+      background-color: goldenrod;
+      flex: 0 0 100px;
+    }
+
+    &__photo {
+      background-color: blanchedalmond;
+    }
+  }
+
+  &__row-2 {
+    // background-color: transparent;
+    background-color: rebeccapurple;
+    flex: 0 0 99.33333333333333px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__left-photo {
+      background-color: orchid;
+      flex: 0 0 100px;
+    }
+    &__right-photo {
+      background-color: olivedrab;
+      flex: 0 0 100px;
+    }
+
+    &__photo {
+      background-color: yellow;
+    }
+  }
+
+  &__row-3 {
+    background-color: transparent;
+    flex: 0 0 99.33333333333333px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    &__left-photo {
+      flex: 0 0 100px;
+    }
+    &__right-photo {
+      flex: 0 0 100px;
+    }
+    &__see-more {
+      color: #fff;
+      background: transparent;
+    }
+    &__photo {
+    }
+  }
+}

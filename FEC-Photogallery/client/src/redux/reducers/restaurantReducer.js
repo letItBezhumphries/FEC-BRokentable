@@ -1,24 +1,27 @@
-import { GET_RESTAURANT_GALLERY, CLEAR_RESTAURANT_GALLERY } from "../types";
+import { GET_RESTAURANT_PHOTOS, CLEAR_RESTAURANT } from "../actions/types";
 
 const initialState = {
+  loading: true,
+  restaurantId: "",
   name: "",
   heroImage: "",
   photos: [],
-  currentGalleryPage: 1,
-  showSlider: false,
 };
 
-export default (state = initialState, action) => {
-  switch (action.type) {
-    case GET_RESTAURANT_GALLERY:
+export default function (state = initialState, action) {
+  const { type, payload } = action;
+  console.log("in Reducer", type, payload);
+  switch (type) {
+    case GET_RESTAURANT_PHOTOS:
       return {
         ...state,
-        name: action.payload.name,
-        heroImage: action.payload.heroImage,
-        photos: action.payload.photos,
-        currentGalleryPage: 1,
+        restaurantId: payload.restaurantId,
+        name: payload.name,
+        heroImage: payload.heroImage,
+        photos: payload.photos,
+        loading: false,
       };
     default:
       return state;
   }
-};
+}

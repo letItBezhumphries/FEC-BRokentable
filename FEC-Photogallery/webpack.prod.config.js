@@ -4,6 +4,7 @@ var DIST_DIR = path.join(__dirname, "/public/dist");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin"); // extracts css files into styles.css in dist
 const { CleanWebpackPlugin } = require("clean-webpack-plugin"); //to clean out dist folder
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   entry: `${SRC_DIR}/index.js`,
@@ -11,7 +12,7 @@ module.exports = {
   output: {
     filename: "bundle.[contenthash].js",
     path: DIST_DIR,
-    publicPath: "",
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -46,5 +47,6 @@ module.exports = {
       template: "./public/index.html",
       filename: "index.html",
     }),
+    new Dotenv(),
   ],
 };

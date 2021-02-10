@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const Restaurant = require("./restaurantModel");
+const Restaurant = require("./models/restaurant");
 
 module.exports = (restaurantObj) => {
   const {
