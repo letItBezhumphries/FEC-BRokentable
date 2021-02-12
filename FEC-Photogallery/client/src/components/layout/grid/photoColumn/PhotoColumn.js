@@ -1,117 +1,172 @@
 import React from "react";
+import { connect } from "react-redux";
 import PhotoBox from "../photoBox/PhotoBox";
+import PropTypes from "prop-types";
 import PhotoColumnRow from "../photoColumnRow/PhotoColumnRow";
 
-const PhotoColumn = ({ className, photos, index }) => {
+const PhotoColumn = ({ className, index, photos, loading, galleryPhotos }) => {
   let columnContent;
+  let columnClassName;
+  let leftIndexCtrl = [1, 4];
+  let rightIndexCtrl = [
+    [3, 7],
+    [5, 8],
+    [6, 9],
+  ];
+  let colorCtrl = ["yellow", "brown", "purple", "green", "orange", "blue"];
+
   if (className === "left-box") {
     if (photos.length < 2) {
+      columnClassName = "left-box";
       columnContent = (
-        <div className="left-box">
-          Left
-          <PhotoBox photo={photos[0]} className="photobox" index={index} />
-        </div>
+        <PhotoBox
+          photo={photos[0]}
+          className="photobox"
+          index={index}
+          color="red"
+        />
       );
     } else {
+      columnClassName = "left-box rows-2";
       columnContent = (
-        <div className="left-box">
-          Left
-          <PhotoBox photo={photos[0]} className="photobox__top" index={1} />
-          <PhotoBox photo={photos[1]} className="photobox__bottom" index={2} />
-        </div>
+        <>
+          {photos.map((photo, idx) => (
+            <PhotoBox
+              key={idx}
+              photo={photo}
+              index={leftIndexCtrl[idx]}
+              className={`photobox row-${idx + 1}`}
+              color={colorCtrl[idx]}
+            />
+          ))}
+        </>
       );
     }
   }
 
   if (className === "center-box") {
+    columnClassName = "center-box";
     columnContent = (
-      <div className="center-box">
-        Center
-        <PhotoBox photo={photos[0]} className="photobox" index={index} />
-      </div>
+      <PhotoBox
+        photo={photos[0]}
+        className="photobox"
+        index={index}
+        color="yellowgreen"
+      />
     );
   }
 
   if (className === "right-box") {
     if (photos.length <= 3) {
+      columnClassName = `right-box rows-${photos.length}`;
       columnContent = (
-        <div className={`right-box rows-${photos.length}`}>
-          Right
-          {photos.map((photo, idx) => (
-            <PhotoColumnRow
-              key={idx}
-              photos={photo}
-              className={`column-row row-${idx}`}
-              indices={[3, 5, 6]}
-            />
-          ))}
-        </div>
-      );
-    } else if (photos.length === 4) {
-      let images = photos.splice(0, 2);
-      columnContent = (
-        <div className="right-box rows-3">
-          Right
-          <PhotoColumnRow
-            photos={images}
-            className="column-row row-1"
-            index={3}
-          />
+        <>
           {photos.map((photo, idx) => (
             <PhotoColumnRow
               key={idx}
               photos={photo}
               className={`column-row row-${idx + 1}`}
-              index={idx + 6}
+              index={rightIndexCtrl[idx][0]}
+              color={colorCtrl[idx]}
             />
           ))}
-        </div>
+        </>
       );
-    } else if (photos.length === 5) {
+    }
+
+    if (photos.length === 4) {
+      columnClassName = "right-box rows-3";
       columnContent = (
-        <div className="right-box rows-3">
-          Right
+        <>
           <PhotoColumnRow
             photos={photos.slice(0, 2)}
             className="column-row row-1"
-            indices={[3, 7]}
+            indices={rightIndexCtrl[0]}
+            colors={colorCtrl.slice(0, 2)}
           />
           <PhotoColumnRow
             photos={photos[2]}
             className="column-row row-2"
-            index={5}
+            index={rightIndexCtrl[1][0]}
+            color={colorCtrl[2]}
+          />
+          <PhotoColumnRow
+            photos={photos[3]}
+            className="column-row row-3"
+            index={rightIndexCtrl[2][0]}
+            color={colorCtrl[3]}
+          />
+        </>
+      );
+    }
+    if (photos.length === 5) {
+      columnClassName = "right-box rows-3";
+      columnContent = (
+        <>
+          <PhotoColumnRow
+            photos={photos.slice(0, 2)}
+            className="column-row row-1"
+            indices={rightIndexCtrl[0]}
+            colors={colorCtrl.slice(0, 2)}
+          />
+          <PhotoColumnRow
+            photos={photos[2]}
+            className="column-row row-2"
+            index={rightIndexCtrl[1][0]}
+            colors={colorCtrl[2]}
           />
           <PhotoColumnRow
             photos={photos.slice(4)}
             className="column-row row-3"
-            indices={[6, 8]}
+            indices={rightIndexCtrl[2]}
+            colors={colorCtrl.slice(3, 5)}
           />
-        </div>
+        </>
       );
-    } else {
+    }
+    if (photos.length === 6) {
+      columnClassName = "right-box rows-3";
       columnContent = (
-        <div className="right-box rows-3">
-          Right
+        <>
           <PhotoColumnRow
             photos={photos.slice(0, 2)}
             className="column-row row-1"
-            indices={[3, 7]}
+            indices={rightIndexCtrl[0]}
+            colors={colorCtrl.slice(0, 2)}
           />
           <PhotoColumnRow
             photos={photos.slice(2, 4)}
             className="column-row row-2"
-            indices={[5, 8]}
+            index={rightIndexCtrl[1]}
+            colors={colorCtrl.slice(2, 4)}
           />
           <PhotoColumnRow
-            photos={photos.slice(4)}
+            photos={photos.slice(4, 6)}
             className="column-row row-3"
-            indices={[6, 9]}
+            indices={rightIndexCtrl[2]}
+            colors={colorCtrl.slice(4, 6)}
           />
-        </div>
+        </>
       );
     }
   }
-  return columnContent;
+  return (
+    <div className={columnClassName}>
+      {!loading && galleryPhotos.length ? columnContent : null}
+    </div>
+  );
 };
 
-export default PhotoColumn;
+PhotoColumn.propTypes = {
+  className: PropTypes.string.isRequired,
+  photos: PropTypes.array.isRequired,
+  galleryPhotos: PropTypes.array.isRequired,
+  loading: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  loading: state.restaurant.loading,
+  galleryPhotos: state.restaurant.galleryPhotos,
+});
+
+export default connect(mapStateToProps)(PhotoColumn);

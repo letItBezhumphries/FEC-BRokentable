@@ -11,7 +11,7 @@ const generatePhotoSubjectType = (types) => {
   return types[randomIndex];
 };
 
-const subjects = ["Interior", "Exterior", "Food", "Drink"];
+const subjects = ["Interior", "Exterior", "Food", "Drink", "Bar"];
 
 //this function takes in a number and a url string and returns an array populated with the given number of unsplash urls
 const createPhotoCollection = function (

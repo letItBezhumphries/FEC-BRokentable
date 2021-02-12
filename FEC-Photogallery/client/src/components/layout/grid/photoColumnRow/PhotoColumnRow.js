@@ -1,22 +1,22 @@
 import React from "react";
 import PhotoBox from "../photoBox/PhotoBox";
 
-const PhotoColumnRow = ({ photos, className, index, indices, color }) => {
+const PhotoColumnRow = ({ photos, className, index, color, colors }) => {
   let row;
-  if (indices) {
+  if (colors) {
     row = (
       <div className={className}>
         <PhotoBox
           photo={photos[0]}
           className="photobox-left"
-          index={indices[0]}
-          color={color}
+          index={index}
+          color={colors[0]}
         />
         <PhotoBox
           photo={photos[1]}
           className="photobox-right"
-          index={indices[1]}
-          color={color}
+          index={index}
+          color={colors[1]}
         />
       </div>
     );

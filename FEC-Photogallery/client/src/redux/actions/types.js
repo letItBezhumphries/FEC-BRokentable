@@ -4,3 +4,5 @@ export const CLEAR_RESTAURANT = "CLEAR_RESTAURANT";
 export const SET_ERROR = "SET_ERROR";
 
 export const GET_RESTAURANTS = "GET_RESTAURANTS";
+export const SET_FILTER = "SET_FILTER";
+export const CLEAR_FILTER = "CLEAR_FILTER";

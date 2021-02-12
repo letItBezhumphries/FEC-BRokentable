@@ -4,48 +4,61 @@ import PhotoColumn from "./photoColumn/PhotoColumn";
 import PropTypes from "prop-types";
 import "./Grid.scss";
 
-const Grid = ({ restaurant: { photos, loading } }) => {
-  const galleryPhotos = photos.slice(0, 9);
-  console.log("length of photos", galleryPhotos.length);
+const Grid = ({ galleryPhotos }) => {
+  console.log("photos in gallery", galleryPhotos.length);
   let galleryRow;
+  let classNames = ["left-box", "center-box", "right-box"];
 
   if (galleryPhotos.length >= 4) {
     galleryRow = (
       <div className="photogallery-grid col-3">
-        <PhotoColumn photos={galleryPhotos.slice(0, 2)} className="left-box" />
         <PhotoColumn
-          photos={galleryPhotos[2]}
-          className="center-box"
+          photos={galleryPhotos.slice(0, 2)}
+          className={classNames[0]}
+        />
+        <PhotoColumn
+          photos={galleryPhotos.slice(2, 3)}
+          className={classNames[1]}
           index={3}
         />
-        <PhotoColumn photos={galleryPhotos.slice(3)} className="right-box" />
+        <PhotoColumn
+          photos={galleryPhotos.slice(3)}
+          className={classNames[2]}
+        />
       </div>
     );
   }
   if (galleryPhotos.length === 3) {
     galleryRow = (
       <div className="photogallery-grid col-3">
-        I am the photogallery-grid
-        {galleryPhotos.map((photo, idx) => (
-          <PhotoColumn
-            key={idx}
-            index={idx + 1}
-            photos={photo}
-            className={
-              idx === 0 ? "left-box" : idx === 1 ? "center-box" : "right-box"
-            }
-          />
-        ))}
+        <PhotoColumn
+          photos={galleryPhotos.slice(0, 1)}
+          index={1}
+          className={classNames[0]}
+        />
+        <PhotoColumn
+          photos={galleryPhotos.slice(1, 2)}
+          index={2}
+          className={classNames[1]}
+        />
+        <PhotoColumn
+          photos={galleryPhotos.slice(2, 3)}
+          index={3}
+          className={classNames[2]}
+        />
       </div>
     );
   }
   if (galleryPhotos.length === 2) {
     galleryRow = (
       <div className="photogallery-grid col-2">
-        I am the photogallery-grid
-        <PhotoColumn photos={galleryPhotos[0]} index={1} className="left-box" />
         <PhotoColumn
-          photos={galleryPhotos[1]}
+          photos={galleryPhotos.slice(0, 1)}
+          index={1}
+          className="left-box"
+        />
+        <PhotoColumn
+          photos={galleryPhotos.slice(1)}
           index={2}
           className="right-box"
         />
@@ -55,24 +68,23 @@ const Grid = ({ restaurant: { photos, loading } }) => {
   if (galleryPhotos.length === 1) {
     galleryRow = (
       <div className="photogallery-grid col-1">
-        I am the photogallery-grid
         <PhotoColumn
-          photos={galleryPhotos[0]}
+          photos={galleryPhotos.slice(0, 1)}
           index={1}
           className="center-box"
         />
       </div>
     );
   }
-  return galleryRow;
+  return galleryPhotos.length && <Fragment>{galleryRow}</Fragment>;
 };
 
 Grid.propTypes = {
-  restaurant: PropTypes.object.isRequired,
+  galleryPhotos: PropTypes.array.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  restaurant: state.restaurant,
+  galleryPhotos: state.restaurant.galleryPhotos,
 });
 
 export default connect(mapStateToProps)(Grid);

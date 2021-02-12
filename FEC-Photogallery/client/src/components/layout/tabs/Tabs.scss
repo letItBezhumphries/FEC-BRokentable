@@ -1,0 +1,26 @@
+.tabs {
+  background-color: crimson;
+  text-align: left;
+}
+
+.tab-list {
+  background-color: cornflowerblue;
+  padding-left: 0;
+}
+
+.tab-list-item {
+  display: inline-block;
+  list-style: none;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  // text-transform: uppercase;
+  // color: #abb7c4;
+  padding-bottom: 15px;
+  margin-right: 50px;
+}
+
+.tab-list-active {
+  border-bottom: 3px solid;
+  color: red;
+}
