@@ -2,9 +2,9 @@
 
 const getRequestURL = () => {
   let RESTAURANT_API_URL;
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === 'production') {
     RESTAURANT_API_URL = process.env.PROD_REQUEST_URL;
-  } else if (process.env.NODE_ENV === "development") {
+  } else if (process.env.NODE_ENV === 'development') {
     RESTAURANT_API_URL = process.env.DEV_REQUEST_URL;
   }
   return RESTAURANT_API_URL;

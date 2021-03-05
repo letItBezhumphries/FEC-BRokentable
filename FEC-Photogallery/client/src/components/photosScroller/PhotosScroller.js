@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
-import PhotoView from "../photoView/PhotoView";
-import LeftArrowIcon from "../../assets/SVG/chevron-left.svg";
-import RightArrowIcon from "../../assets/SVG/chevron-right.svg";
-import { updateCurrentIndex } from "../../redux/actions/restaurant";
-import "./PhotosScroller.scss";
+import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import PhotoView from '../photoView/PhotoView';
+import LeftArrowIcon from '../../assets/SVG/chevron-left.svg';
+import RightArrowIcon from '../../assets/SVG/chevron-right.svg';
+import { updateCurrentIndex } from '../../redux/actions/restaurant';
+import './PhotosScroller.scss';
 
 const PhotosScroller = ({ currentIndex, photos, updateCurrentIndex }) => {
   const nextSlide = (idx) => {
-    let lastIndex = photos.length - 1;
+    const lastIndex = photos.length - 1;
     if (idx === lastIndex) {
       updateCurrentIndex(0);
     } else if (idx < photos.length - 1) {
@@ -18,7 +18,7 @@ const PhotosScroller = ({ currentIndex, photos, updateCurrentIndex }) => {
   };
 
   const prevSlide = (idx) => {
-    let lastIndex = photos.length - 1;
+    const lastIndex = photos.length - 1;
     if (idx === 0) {
       updateCurrentIndex(lastIndex);
     } else if (idx <= lastIndex) {
@@ -28,19 +28,11 @@ const PhotosScroller = ({ currentIndex, photos, updateCurrentIndex }) => {
 
   return (
     <div className="gallery-scroller">
-      <button
-        className="arrow-btn left"
-        onClick={() => prevSlide(currentIndex)}
-      >
+      <button className="arrow-btn left" onClick={() => prevSlide(currentIndex)}>
         <LeftArrowIcon className="arrow-btn-icon" />
       </button>
-      <div className="photo-scroller-container">
-        {currentIndex >= 0 ? <PhotoView /> : null}
-      </div>
-      <button
-        className="arrow-btn right"
-        onClick={() => nextSlide(currentIndex)}
-      >
+      <div className="photo-scroller-container">{currentIndex >= 0 ? <PhotoView /> : null}</div>
+      <button className="arrow-btn right" onClick={() => nextSlide(currentIndex)}>
         <RightArrowIcon className="arrow-btn-icon" />
       </button>
     </div>
@@ -50,12 +42,12 @@ const PhotosScroller = ({ currentIndex, photos, updateCurrentIndex }) => {
 PhotosScroller.propTypes = {
   photos: PropTypes.array.isRequired,
   currentIndex: PropTypes.number.isRequired,
-  updateCurrentIndex: PropTypes.func.isRequired,
+  updateCurrentIndex: PropTypes.func.isRequired
 };
 
 const mapStateToProps = (state) => ({
   photos: state.restaurant.photos,
-  currentIndex: state.restaurant.currentIndex,
+  currentIndex: state.restaurant.currentIndex
 });
 
 export default connect(mapStateToProps, { updateCurrentIndex })(PhotosScroller);

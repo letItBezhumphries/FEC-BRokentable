@@ -1,10 +1,10 @@
-import { combineReducers } from "redux";
-import errorReducer from "./errorReducer";
-import restaurantReducer from "./restaurantReducer";
+import { combineReducers } from 'redux';
+import errorReducer from './errorReducer';
+import restaurantReducer from './restaurantReducer';
 
 const rootReducer = combineReducers({
   error: errorReducer,
-  restaurant: restaurantReducer,
+  restaurant: restaurantReducer
 });
 
 export default rootReducer;
