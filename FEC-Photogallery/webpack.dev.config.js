@@ -37,7 +37,7 @@ module.exports = {
         test: /\.(js|jsx)$/,
         include: SRC_DIR,
         exclude: /node_modules/,
-        use: ["babel-loader"],
+        use: ["babel-loader", "eslint-loader"],
       },
       {
         test: /\.css$/,
