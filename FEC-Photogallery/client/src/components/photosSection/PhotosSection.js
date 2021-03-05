@@ -1,5 +1,5 @@
 import React, { useState, useEffect, Fragment } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import {
@@ -9,6 +9,7 @@ import {
 import Spinner from "../layout/spinner/Spinner";
 import Grid from "../layout/grid/Grid";
 import Tabs from "../layout/tabs/Tabs";
+import ModalBackground from "../layout/modal/ModalBackground";
 import getTabFilterOptions from "../utils/getTabFilterOptions";
 import "./PhotosSection.scss";
 
@@ -19,6 +20,7 @@ const PhotosSection = ({
   loading,
   photos,
   filterType,
+  viewModal,
 }) => {
   let { id } = useParams();
   const [filterLabels, setFilterLabels] = useState();
@@ -59,6 +61,8 @@ const PhotosSection = ({
           {!loading && photos.length ? <Grid /> : null}
         </div>
       </div>
+
+      <ModalBackground />
     </Fragment>
   );
 };
@@ -70,6 +74,7 @@ PhotosSection.propTypes = {
   loading: PropTypes.bool.isRequired,
   photos: PropTypes.array.isRequired,
   filterType: PropTypes.string.isRequired,
+  viewModal: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -77,6 +82,7 @@ const mapStateToProps = (state) => ({
   loading: state.restaurant.loading,
   photos: state.restaurant.photos,
   filterType: state.restaurant.filterType,
+  viewModal: state.restaurant.viewModal,
 });
 
 export default connect(mapStateToProps, {

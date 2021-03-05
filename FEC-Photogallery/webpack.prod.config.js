@@ -34,6 +34,10 @@ module.exports = {
         test: /\.(png|jpg)$/,
         use: ["file-loader"],
       },
+      {
+        test: /\.(svg)$/,
+        type: "asset/inline",
+      },
     ],
   },
   plugins: [

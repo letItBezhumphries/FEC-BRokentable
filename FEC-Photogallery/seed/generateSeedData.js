@@ -21,9 +21,11 @@ const createPhotoCollection = function (
   subjectsArr
 ) {
   var output = [];
+  let index = 1;
   while (totalPhotos > 0) {
     output.push({
       imgSrc: urlString,
+      index: index,
       isFlagged: false,
       restaurant: restaurantId,
       dinedOnDate: faker.date.past(),
@@ -32,6 +34,7 @@ const createPhotoCollection = function (
       username: faker.name.firstName(),
     });
     totalPhotos -= 1;
+    index += 1;
   }
   return output;
 };
@@ -62,7 +65,7 @@ const generateRestaurantPhotos = (
 //create the final seeding array
 const seedData = generateRestaurantPhotos(
   restaurantIds,
-  "https://source.unsplash.com/collection/4239193/400x400/",
+  "https://source.unsplash.com/collection/4239193/526x526/",
   subjects
 );
 
